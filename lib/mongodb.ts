@@ -1,9 +1,12 @@
 import mongoose, { Mongoose } from 'mongoose';
 
-const MONGODB_URI = process.env.MONGODB_URI;
-
-if (!MONGODB_URI) {
-  throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
+function getMongoUri() {
+  const uri = process.env.MONGODB_URI;
+  if (!uri) {
+    // Defer failure to runtime usage rather than import time to avoid build failures
+    throw new Error('Missing MONGODB_URI environment variable. Set it in your deployment environment.');
+  }
+  return uri;
 }
 
 // Augment the global scope to include the mongoose cache
@@ -30,7 +33,7 @@ async function dbConnect() {
       bufferCommands: false,
     }
 
-    cached.promise = mongoose.connect(MONGODB_URI!, opts).then((mongoose) => {
+    cached.promise = mongoose.connect(getMongoUri(), opts).then((mongoose) => {
       return mongoose
     })
   }
