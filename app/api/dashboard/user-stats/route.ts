@@ -4,6 +4,9 @@ import dbConnect from "@/lib/mongodb"
 import Form from "@/models/Form"
 import Feedback from "@/models/Feedback"
 
+export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
+
 export async function GET(request: NextRequest) {
   try {
     const session = await getServerSession()

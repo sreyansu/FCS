@@ -4,6 +4,9 @@ import Form from '@/models/Form';
 import { getServerSession } from 'next-auth';
 // import { authOptions } from '@/lib/auth'; // Assuming you have authOptions defined
 
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 export async function GET() {
   await dbConnect();
 
